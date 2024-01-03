@@ -110,9 +110,9 @@ console.log(shopOpen, shopClose);
 
 //passing object as argument inside a function
 resturant.orderDelivery = function ({
-  starterIndex=1,
-  mainIndex=0,
-  time='20:00',
+  starterIndex = 1,
+  mainIndex = 0,
+  time = "20:00",
   location,
 }) {
   console.log(`Order summary:
@@ -122,21 +122,39 @@ resturant.orderDelivery = function ({
   ${location}`);
 };
 
-resturant.orderDelivery({location:'Delhi'});
+resturant.orderDelivery({ location: "Delhi" });
 
 /***********************************************************************************************
-* Spread operator
+ * Spread operator
  ***********************************************************************************************/
 
-const resturantCopy = {...resturant, owner:'Vivek Poddar'};
-resturantCopy.name = 'Copied Resturant';
+const resturantCopy = { ...resturant, owner: "Vivek Poddar" };
+resturantCopy.name = "Copied Resturant";
 console.log(resturantCopy);
 
 /***********************************************************************************************
-* rest pattern
+ * rest pattern
  ***********************************************************************************************/
-// here we are destructuring the resturant object and storing the values in weekdays and weekend 
+// here we are destructuring the resturant object and storing the values in weekdays and weekend
 // weekend will store the value of sat key
 // weekdays will store of the values
-const {sat:weekend, ...weekdays} = resturant.openingHours;
+const { sat: weekend, ...weekdays } = resturant.openingHours;
 console.log(weekend, weekdays);
+
+/***********************************************************************************************
+ * Object literals
+ ***********************************************************************************************/
+const mode = ["one-day", "test", "t20"];
+const cricket = {
+  // instead of copy the value of some variable inside key i.e mymode: mode
+  // we can create a key with similar name and value of a variable/array/obj, by just specifying its name, same as below
+  mode,
+  // instead of defining a function as: tournament: function(){...}
+  // can be written as
+  tournaments() {
+    return ["one-day world cup", "t20 world cup", "champions trophy", "ict"];
+  },
+  //key name can be evaluated by an expression also
+  [`day${2 + 4}`]: "friday", // similar to, day6:'friday'
+};
+console.log(cricket.day6);

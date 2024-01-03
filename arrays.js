@@ -110,3 +110,18 @@ orderPasta(...['onion', 'creram', 'chillies']);
 // rest of the values will be stored in an array called restArray
 const [first, second, ...restArray] = [...badArr, ...goodArr];
 console.log(first, second, restArray);
+
+
+/***********************************************************************************************
+ * for-of loop
+ *  -> instead of declaring variables and iterating the array
+ *  -> we directly fetch the values
+ ***********************************************************************************************/
+for (const item of arr){
+  console.log(item);
+}
+
+//.entries() returns an array with [index, value]
+for (const [index, item] of arr.entries()){
+  console.log(index, item);
+}
