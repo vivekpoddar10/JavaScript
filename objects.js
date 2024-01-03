@@ -131,3 +131,12 @@ resturant.orderDelivery({location:'Delhi'});
 const resturantCopy = {...resturant, owner:'Vivek Poddar'};
 resturantCopy.name = 'Copied Resturant';
 console.log(resturantCopy);
+
+/***********************************************************************************************
+* rest pattern
+ ***********************************************************************************************/
+// here we are destructuring the resturant object and storing the values in weekdays and weekend 
+// weekend will store the value of sat key
+// weekdays will store of the values
+const {sat:weekend, ...weekdays} = resturant.openingHours;
+console.log(weekend, weekdays);

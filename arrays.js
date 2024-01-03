@@ -78,9 +78,9 @@ console.log(s,t,u);
 /***********************************************************************************************
 * Spread operator
 
-* Both destructure, and spread operator the unpacks the array's value
-* But in destructuring array, we store the value in differemt variable, and may want some or all the values
-* But in spread operator, we just fetch all the values and passed them inside some function or array i.e making a copy. We don't store it inside some variable
+* Both destructure, and spread operator, unpacks the array's value
+* In destructuring array, we store the value in differemt variable, and may want some or all the values
+* But in spread operator, we just fetch all the values and passed them inside some function or array i.e making a copy. We don't store it inside any variable
  ***********************************************************************************************/
 const newArr = [1,2,3];
 const badArr = [newArr[0], newArr[1], newArr[2], 4,5];
@@ -98,3 +98,15 @@ const orderPasta = function(item1, item2, item3) {
 }
 
 orderPasta(...['onion', 'creram', 'chillies']);
+
+/***********************************************************************************************
+ * Rest Pattern
+ * 
+ *  -> collects different element and pack them inside an array
+ ***********************************************************************************************/
+// on right hand side: we make a new array by combining the values of two array, use spread operator
+// on left hand side, we are destructuring the new array and storing the value inside variable
+// variable first and second will store the values at index 0 and 1 respectively
+// rest of the values will be stored in an array called restArray
+const [first, second, ...restArray] = [...badArr, ...goodArr];
+console.log(first, second, restArray);
