@@ -74,3 +74,27 @@ console.log(a,b,c);
 //assigining default values while destructuring
 const [s=1,t=1,u=1] = [2,3];
 console.log(s,t,u);
+
+/***********************************************************************************************
+* Spread operator
+
+* Both destructure, and spread operator the unpacks the array's value
+* But in destructuring array, we store the value in differemt variable, and may want some or all the values
+* But in spread operator, we just fetch all the values and passed them inside some function or array i.e making a copy. We don't store it inside some variable
+ ***********************************************************************************************/
+const newArr = [1,2,3];
+const badArr = [newArr[0], newArr[1], newArr[2], 4,5];
+console.log(badArr);
+
+const goodArr = [...newArr, 4,5];
+console.log(badArr, goodArr);
+
+const joinArr = [...arr, ...newArr];
+console.log(joinArr);
+
+// passing array as an argument in a function, and fetching all the values
+const orderPasta = function(item1, item2, item3) {
+  console.log(`Here is the pasta with ingredints: ${item1}, ${item2}, ${item3}`);
+}
+
+orderPasta(...['onion', 'creram', 'chillies']);

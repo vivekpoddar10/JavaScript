@@ -123,3 +123,11 @@ resturant.orderDelivery = function ({
 };
 
 resturant.orderDelivery({location:'Delhi'});
+
+/***********************************************************************************************
+* Spread operator
+ ***********************************************************************************************/
+
+const resturantCopy = {...resturant, owner:'Vivek Poddar'};
+resturantCopy.name = 'Copied Resturant';
+console.log(resturantCopy);
