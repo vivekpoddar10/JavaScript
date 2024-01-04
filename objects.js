@@ -158,3 +158,42 @@ const cricket = {
   [`day${2 + 4}`]: "friday", // similar to, day6:'friday'
 };
 console.log(cricket.day6);
+
+/***********************************************************************************************
+ * Optional chaining
+ *  -> while fetching the different values from, we may get error if that key is not defined
+ *  -> e.g. const a = {
+ *              b: 2,
+ *          };
+ *  console.log(a.c.d) // it will give error as c is not defined i.e undefined.something
+ *  -> to fix this we use ? where we are not sure whther that key is present or not
+ *  -> ? checks whether the expression written on left exist or not
+ ***********************************************************************************************/
+const timings = {
+  thu: {
+    open: 12,
+    close: 22,
+  },
+  fri: {
+    open: 11,
+    close: 23,
+  },
+  sat: {
+    open: 0,
+    close: 24,
+  },
+};
+//console.log(timings.mon.open); // there is no entry for mon, hence it will give an error
+console.log(timings.mon?.open); //print undefined
+// will check for mon key, if it exist .open will be called on it
+// otherwise undefined will be returned and null coercion operator will process it
+console.log(timings.mon?.open ?? "Doesn't open on monday");
+
+/***********************************************************************************************
+ * Looping Objects
+ ***********************************************************************************************/
+const properties = resturant.openingHours;
+
+console.log(Object.keys(properties)); // return an array of keys
+console.log(Object.values(properties)); // return an array of values
+console.log(Object.entries(properties)); // return an array of array containing key and values, i.e [[k,v], [k,v], ...]
