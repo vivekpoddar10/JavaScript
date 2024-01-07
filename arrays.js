@@ -125,3 +125,85 @@ for (const item of arr){
 for (const [index, item] of arr.entries()){
   console.log(index, item);
 }
+
+
+/***********************************************************************************************
+ * slice Method
+ *  -> 
+ *  -> 
+ ***********************************************************************************************/
+let alphabets = ['a', 'b', 'c', 'd', 'e'];
+console.log(alphabets.slice(0,3));// will return an array containing element from index 0,1,2
+console.log(alphabets.slice()); //will return whole array, similar to [...arr]
+
+/***********************************************************************************************
+ * splice Method
+ *  -> similar to slice method, but the second parameter is the length/number of element you want to include
+ *  -> mutate the original array
+ ***********************************************************************************************/
+console.log(alphabets.splice(1,1));
+
+/***********************************************************************************************
+ * reverse Method
+ *  -> 
+ *  -> mutate the original array
+ ***********************************************************************************************/
+console.log(alphabets.reverse());
+console.log(alphabets);
+
+console.log(alphabets.at(-1));
+
+
+/***********************************************************************************************
+ * for-each Method
+ *  -> parameter: value, index, array
+ *  -> return: void
+ *  -> break, continue don't work in for-each loop
+ *  -> used for simply looping the array
+ ***********************************************************************************************/
+const myval = alphabets.forEach(function(letters, index){
+  letters += '0';
+  console.log(letters);
+})
+console.log(alphabets);
+
+/***********************************************************************************************
+ * map Method
+ *  -> parameter: value, index, array
+ *  -> return: a new array
+ *  -> If we want to perform some operation on the all elements of the array, and store the output of the operation in a new array
+ ***********************************************************************************************/
+const eurToUsd = 1.1;
+const usdAmt = [40,12,23,45];
+const eurAmt = usdAmt.map(function(amount){
+  return amount*eurToUsd;
+});
+console.log(usdAmt);
+console.log(eurAmt);
+
+
+/***********************************************************************************************
+ * filter Method
+ *  -> parameter: value, index, array
+ *  -> return: a new array
+ *  -> If we want to filter the elements of the array on some condition, and store the output of in a new array
+ ***********************************************************************************************/
+const numbers = [0,-2,3,1,-4,10,5];
+const positiveNum = numbers.filter(function(value){
+  if(value >= 0) {
+    return value;
+  }
+});
+console.log(numbers);
+console.log(positiveNum);
+
+/***********************************************************************************************
+ * reduce Method
+ *  -> parameter: accumulator, value, index, array
+ *  -> return: a single vale/ primitive type
+ *  -> If we want to perform some operation on each elements and combine it with other element of the array and at last return the final value
+ ***********************************************************************************************/
+const sumOfNum = numbers.reduce(function(acc, value){
+  return acc + value;
+})
+console.log(sumOfNum);
