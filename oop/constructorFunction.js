@@ -42,8 +42,33 @@ console.log(personObject instanceof Person);
  */ 
 Person.prototype.printName = function(){
     return `'Hello, ${this.firstName} ${this.lastName}`
-}
-console.log(Person.prototype);
-console.log(personObject.printName());
-console.log(personObject.__proto__);
+};
 
+console.log(personObject.printName());
+
+// the newly crerated object after calling the constructor function with new keyword has a property called __proto__
+// it refers to the Person.prototype, i.e Person.prototype is a prototype for all the object created from the Person, not of the Person object itself
+console.log(personObject.__proto__ === Person.prototype);
+console.log(Person.prototype.isPrototypeOf(personObject) );
+
+console.dir(Person.prototype.constructor);
+
+//example
+const Car = function(make, speed) {
+    this.make = make;
+    this.speed = speed;
+};
+
+Car.prototype.accelerate = function() {
+    this.speed += 10;
+    console.log(this.speed);
+};
+
+Car.prototype.brake = function() {
+    this.speed -= 10;
+    console.log(this.speed);
+};
+
+const car1 = new Car('BMW', 120);
+car1.accelerate();
+car1.brake();
