@@ -1,6 +1,0 @@
-/**
- * there are 3 different ways to implement oops
- *  -> constructor function
- *  -> es6 classes
- *  -> Object.create()
- */

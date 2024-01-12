@@ -56,3 +56,20 @@ const myBank = new Bank("SBI", "New Delhi");
 console.log(myBank.name);
 
 //static method
+Bank.hey = function(){
+  console.log(`Hey there ${this.name}`);
+}
+Bank.hey();
+
+class staticMethodClass {
+  constructor(name){
+    this.name = name;
+  }
+  static heyClass(){
+    console.log(`Hey there ${this.name}`);
+  }
+}
+
+staticMethodClass.heyClass();
+const obj = new staticMethodClass('hello');
+//obj.heyClass(); -> .heyClass() is not a function error will be thrown
