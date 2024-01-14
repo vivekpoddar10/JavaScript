@@ -167,14 +167,14 @@ console.log("Test event loop End");
  *  ->      rejected(rarg), rarg will be passed to catch block
  ******************************************************************************/
 const lotteryPromise = new Promise(function (fulfilled, rejected) {
-  console.log('Lottery draw is happening');
-  setTimeout(function() {
+  console.log("Lottery draw is happening");
+  setTimeout(function () {
     if (Math.random() >= 0.5) {
       fulfilled("You win 🏆");
     } else {
       rejected("You lost your money 🥺");
     }
-  },2000)
+  }, 2000);
 });
 
 //if promise is fulfilled, 'You Win 🏆' will be passed as an argument to the then method
@@ -182,14 +182,126 @@ const lotteryPromise = new Promise(function (fulfilled, rejected) {
 lotteryPromise.then((res) => console.log(res)).catch((err) => console.log(err));
 
 //Promisifying setTimeout
-const wait = function(arg, seconds) {
-  return new Promise( function(resolved) {
+const wait = function (arg, seconds) {
+  return new Promise(function (resolved) {
     setTimeout(resolved(arg), seconds * 1000);
   });
 };
 
-wait('wait', 2).then(res => console.log(res))
+wait("wait", 2).then((res) => console.log(res));
 
 /**
  * To resolve any promise immediately use static methods: Promise.resolve(), Promise.reject()
  */
+
+/******************************************************************************
+ * consuming Promises
+ * Async function -> similar to normal function, but it is not executed immediately by the execution contest, it runs asynchronously
+ * @returns 'Promise'
+ * We use @await keyword before @fetch , it means the code will wait untill the @fetch fulfills the promise
+ * It doesn't affect our code as the whole function is running asynchronously
+ *
+ * Both the below does exactly same thing, it's only way of writing and storing the value
+ *
+ * const response = await fetch(url);
+ * const jsonData = await response.json();
+ * console.log(jsonData)
+ *
+ * fetch(url).then(response => response.json()).then(data => console.log(data))
+ *******************************************************************************/
+const whereAreWe = async function (country) {
+  //Hnadling the exception, if any of the promise is not fulfilled
+  try {
+    const resolved = await fetch(
+      `https://restcountries.com/v3.1/name/${country}`
+    );
+    if (!resolved.ok) {
+      throw new Error(`${country} not found`);
+    }
+    const [data] = await resolved.json();
+    //returning a value from async function
+    //const result = whereAreWe();
+    //console.log(result) will print promise, not this string value
+    return `${country}, its capital is ${data.capital}. It lies in ${data.subregion}, ${data.region}`;
+  } catch (error) {
+    throw error;
+  }
+};
+
+//to print the return value from the async function we can use then method
+whereAreWe("abc")
+  .then((info) => console.log(info))
+  .catch((err) => console.error(err.message));
+
+//however we can also use and iife async method
+(async function () {
+  try {
+    const result = await whereAreWe("pakistan");
+    console.log(result);
+  } catch (err) {
+    console.log(err.message);
+  }
+})();
+
+/*******************************************************************************
+ * Running parallel promise: Promise.all([promise1, ...])
+ *******************************************************************************/
+const getJSON = function (url, errMsg = "data not found") {
+  return fetch(url).then((response) => {
+    if (!response.ok) {
+      throw new Error(`${errMsg}`);
+    }
+    return response.json();
+  });
+};
+
+const runParallelPromise = async function (c1, c2, c3) {
+  try {
+    const data = await Promise.all([
+      await getJSON(`https://restcountries.com/v3.1/name/${c1}`),
+      await getJSON(`https://restcountries.com/v3.1/name/${c2}`),
+      await getJSON(`https://restcountries.com/v3.1/name/${c3}`),
+    ]);
+
+    console.log(data);
+  } catch (err) {
+    throw err;
+  }
+};
+
+runParallelPromise("Pakistan", "Nepal", "Sri Lanka");
+
+/*********************************************************************************
+ * Promise.allSettled()
+ *  -> similar to Promise.all()
+ *  -> but it returns all the promises whether they are fulfilled or rejected
+ *********************************************************************************/
+Promise.allSettled([
+  Promise.resolve('sucess'),
+  Promise.reject('Failure'),
+  Promise.reject('Failure')
+]).then(data => console.log(data));
+
+/***********************************************************************
+ * Promise.race()
+ *  -> It returns the promise which is fulfilled first, whether it is rejected or fulfilled
+ ***********************************************************************/
+
+Promise.race([
+  Promise.resolve('Failure'),
+  Promise.reject('Success'),
+  Promise.reject('Failure')
+]).then(data => console.log(data))
+
+/***********************************************************************
+ * Promise.any()
+ *  -> similar to Promise.race()
+ *  -> but only returns the first fulfilled promise
+ ***********************************************************************/
+
+Promise.any([
+  Promise.reject('failure'),
+  Promise.reject('Failure'),
+  Promise.resolve('Success after 2 failures'),
+  Promise.reject('Failure')
+]).then(data => console.log(data))
